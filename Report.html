@@ -117,92 +117,14 @@ trainingsubset4 &lt;- trainingsubset3[,!NZV$nzv]</code></pre>
 predictions4 &lt;- predict(modelfitRF4, newdata = validation)
 cm &lt;- confusionMatrix(predictions4, validation$classe)
 cm</code></pre>
-<pre><code>## function (x) 
-## 2.54 * x
-## &lt;bytecode: 0x000000001c178238&gt;
-## &lt;environment: namespace:grDevices&gt;</code></pre>
-<pre><code>## function (..., exclude = if (useNA == &quot;no&quot;) c(NA, NaN), useNA = c(&quot;no&quot;, 
-##     &quot;ifany&quot;, &quot;always&quot;), dnn = list.names(...), deparse.level = 1) 
-## {
-##     list.names &lt;- function(...) {
-##         l &lt;- as.list(substitute(list(...)))[-1L]
-##         nm &lt;- names(l)
-##         fixup &lt;- if (is.null(nm)) 
-##             seq_along(l)
-##         else nm == &quot;&quot;
-##         dep &lt;- vapply(l[fixup], function(x) switch(deparse.level + 
-##             1, &quot;&quot;, if (is.symbol(x)) as.character(x) else &quot;&quot;, 
-##             deparse(x, nlines = 1)[1L]), &quot;&quot;)
-##         if (is.null(nm)) 
-##             dep
-##         else {
-##             nm[fixup] &lt;- dep
-##             nm
-##         }
-##     }
-##     if (!missing(exclude) &amp;&amp; is.null(exclude)) 
-##         useNA &lt;- &quot;always&quot;
-##     useNA &lt;- match.arg(useNA)
-##     args &lt;- list(...)
-##     if (!length(args)) 
-##         stop(&quot;nothing to tabulate&quot;)
-##     if (length(args) == 1L &amp;&amp; is.list(args[[1L]])) {
-##         args &lt;- args[[1L]]
-##         if (length(dnn) != length(args)) 
-##             dnn &lt;- if (!is.null(argn &lt;- names(args))) 
-##                 argn
-##             else paste(dnn[1L], seq_along(args), sep = &quot;.&quot;)
-##     }
-##     bin &lt;- 0L
-##     lens &lt;- NULL
-##     dims &lt;- integer()
-##     pd &lt;- 1L
-##     dn &lt;- NULL
-##     for (a in args) {
-##         if (is.null(lens)) 
-##             lens &lt;- length(a)
-##         else if (length(a) != lens) 
-##             stop(&quot;all arguments must have the same length&quot;)
-##         cat &lt;- if (is.factor(a)) {
-##             if (any(is.na(levels(a)))) 
-##                 a
-##             else {
-##                 if (is.null(exclude) &amp;&amp; useNA != &quot;no&quot;) 
-##                   addNA(a, ifany = (useNA == &quot;ifany&quot;))
-##                 else {
-##                   if (useNA != &quot;no&quot;) 
-##                     a &lt;- addNA(a, ifany = (useNA == &quot;ifany&quot;))
-##                   ll &lt;- levels(a)
-##                   a &lt;- factor(a, levels = ll[!(ll %in% exclude)], 
-##                     exclude = if (useNA == &quot;no&quot;) 
-##                       NA)
-##                 }
-##             }
-##         }
-##         else {
-##             a &lt;- factor(a, exclude = exclude)
-##             if (useNA != &quot;no&quot;) 
-##                 addNA(a, ifany = (useNA == &quot;ifany&quot;))
-##             else a
-##         }
-##         nl &lt;- length(ll &lt;- levels(cat))
-##         dims &lt;- c(dims, nl)
-##         if (prod(dims) &gt; .Machine$integer.max) 
-##             stop(&quot;attempt to make a table with &gt;= 2^31 elements&quot;)
-##         dn &lt;- c(dn, list(ll))
-##         bin &lt;- bin + pd * (as.integer(cat) - 1L)
-##         pd &lt;- pd * nl
-##     }
-##     names(dn) &lt;- dnn
-##     bin &lt;- bin[!is.na(bin)]
-##     if (length(bin)) 
-##         bin &lt;- bin + 1L
-##     y &lt;- array(tabulate(bin, pd), dims, dimnames = dn)
-##     class(y) &lt;- &quot;table&quot;
-##     y
-## }
-## &lt;bytecode: 0x000000001b772908&gt;
-## &lt;environment: namespace:base&gt;</code></pre>
+<p>Confusion Matrix and Statistics</p>
+<p>Overall Statistics</p>
+<pre><code>           Accuracy : 0.9985          
+             95% CI : (0.9971, 0.9993)
+No Information Rate : 0.2845          
+P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+                                      
+              Kappa : 0.9981          </code></pre>
 <p>As can be seen this gives an error rate of approximately 0.15% which is incredibly good. Thus it seems adding in the NZVs could do little other than to significantly increase computation time.</p>
 </div>
 <div id="get-the-predictions-for-the-test-set" class="section level2">

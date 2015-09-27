@@ -59,11 +59,23 @@ trainingsubset4 <- trainingsubset3[,!NZV$nzv]
 ##Build a model
 As I am not an expert in the field I cannot build a model from hand picked variables. I also cannot tell if a linear model is appropriate and if so under what conditions.
 As a result I have used (and found to be the best) a random forest
-```{r}
+```{r, eval=FALSE}
 modelfitRF4 <- train(classe~., data = trainingsubset4, method = "rf")
 predictions4 <- predict(modelfitRF4, newdata = validation)
 cm <- confusionMatrix(predictions4, validation$classe)
+cm
 ```
+
+Confusion Matrix and Statistics
+
+Overall Statistics
+                                          
+               Accuracy : 0.9985          
+                 95% CI : (0.9971, 0.9993)
+    No Information Rate : 0.2845          
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.9981          
 
 As can be seen this gives an error rate of approximately 0.15% which is incredibly good. Thus it seems adding in the NZVs could do little other than to significantly increase computation time.
 
